@@ -4,7 +4,7 @@
  */
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: /index.html');
+    header('Location: /index');
     exit;
 }
 $username = htmlspecialchars($_SESSION['username'] ?? 'User');
@@ -87,7 +87,7 @@ if (isset($_POST['unhost']) && $isAuthorized) {
     $stmt = $pdo->prepare("DELETE FROM hosted_accounts WHERE id = ? AND login_user_id = ?");
     $stmt->execute([$id, $userId]);
     
-    header('Location: /accounts.php');
+    header('Location: /accounts');
     exit;
 }
 
@@ -115,7 +115,7 @@ if (isset($_POST['token']) && $isAuthorized && $slotsAvailable > 0) {
         $message = 'Account hosted successfully!';
         
         // Refresh
-        header('Location: /accounts.php');
+        header('Location: /accounts');
         exit;
     } else {
         $error = 'Invalid token. Please check your Discord user token.';
@@ -644,13 +644,13 @@ unset($acc);
             <span id="logo-text" class="logo-text">Heye</span>
         </div>
         <div class="nav-center">
-            <a href="/dashboard.php" class="nav-link">Dashboard</a>
-            <a href="/accounts.php" class="nav-link active">Accounts</a>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/accounts" class="nav-link active">Accounts</a>
             <?php if ($isAdmin): ?>
-                <a href="/acp.php" class="nav-link">ACP</a>
+                <a href="/acp" class="nav-link">ACP</a>
             <?php endif; ?>
             <?php if ($isOwner): ?>
-                <a href="/ocp.php" class="nav-link">OCP</a>
+                <a href="/ocp" class="nav-link">OCP</a>
             <?php endif; ?>
         </div>
         <div class="user-menu">
@@ -788,7 +788,7 @@ unset($acc);
         
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/logout.php';
+                window.location.href = '/logout';
             }
         }
         
