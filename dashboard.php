@@ -133,8 +133,39 @@ if (isset($_POST['token']) && $isAuthorized && $slotsAvailable > 0) {
         $stmt = $pdo->prepare("INSERT INTO hosted_accounts (login_user_id, hosted_user_id, token, username, discriminator, avatar, status, approved_by, approved_at) VALUES (?, ?, ?, ?, ?, ?, 'hosted', ?, NOW())");
         $stmt->execute([$userId, $hostedUserData['id'], $token, $hostedUserData['username'], $hostedUserData['discriminator'] ?? '0000', $hostedUserData['avatar'], $userId]);
         
-        $output = shell_exec('cd /home/runner/workspace/bot && python3 bot_manager.py start ' . escapeshellarg($token) . ' ' . escapeshellarg($hostedUserData['id']) . ' 2>&1');
-        error_log("Bot start output: " . $output);
+        // FIXED: Updated for Digital Ocean at /var/www/heye/bot
+$bot_dir = '/var/www/heye/bot';
+$python = $bot_dir . '/venv/bin/python3';
+$bot_manager = $bot_dir . '/bot_manager.py';
+
+$command = sprintf(
+    'cd %s && %s %s start %s %s 2>&1',
+    escapeshellarg($bot_dir),
+    escapeshellcmd($python),
+    escapeshellcmd($bot_manager),
+    escapeshellarg($token),
+    escapeshellarg($hostedUserData['id'])
+);
+
+$output = shell_exec($command);
+error_log("Bot start command: $command");
+error_log("Bot start output: " . $output);
+
+// Wait and verify bot started
+sleep(2);
+$status_command = sprintf('%s %s status %s 2>&1', 
+    escapeshellcmd($python), 
+    escapeshellcmd($bot_manager), 
+    escapeshellarg($hostedUserData['id'])
+);
+$status_output = shell_exec($status_command);
+
+if (strpos($status_output, 'running') !== false) {
+    $message = 'Account hosted successfully and bot started!';
+} else {
+    error_log("Bot failed to start. Status: $status_output");
+    $message = 'Account hosted but bot may have failed to start. Check logs at /tmp/bot_' . $hostedUserData['id'] . '.log';
+}
         
         $message = 'Account hosted successfully and bot started!';
         
