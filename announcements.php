@@ -4,7 +4,7 @@
  */
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: /index.html');
+    header('Location: /index');
     exit;
 }
 $username = htmlspecialchars($_SESSION['username'] ?? 'User');
@@ -33,7 +33,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 $role = $userData['role'] ?? 'user';
 
 if ($role !== 'owner') {
-    header('Location: /dashboard.php');
+    header('Location: /dashboard');
     exit;
 }
 
@@ -436,10 +436,10 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span id="logo-text" class="logo-text">Heye</span>
         </div>
         <div class="nav-center">
-            <a href="/dashboard.php" class="nav-link">Dashboard</a>
-            <a href="/accounts.php" class="nav-link">Accounts</a>
-            <a href="/acp.php" class="nav-link">ACP</a>
-            <a href="/ocp.php" class="nav-link">OCP</a>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/accounts" class="nav-link">Accounts</a>
+            <a href="/acp" class="nav-link">ACP</a>
+            <a href="/ocp" class="nav-link">OCP</a>
         </div>
         <div class="user-menu">
             <div class="user-info">
@@ -455,7 +455,7 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <div class="header">
             <h1>Manage Announcements</h1>
-            <a href="/ocp.php" class="back-btn">
+            <a href="/ocp" class="back-btn">
                 <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
                 Back to OCP
             </a>
@@ -541,7 +541,7 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
         lucide.createIcons();
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/logout.php';
+                window.location.href = '/logout';
             }
         }
 
