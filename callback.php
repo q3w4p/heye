@@ -214,20 +214,20 @@ try {
 
 // If successful, redirect using both PHP header and JavaScript
 if ($success) {
-    header('Location: /dashboard.php');
+    header('Location: /dashboard');
     ?>
     <!DOCTYPE html>
     <html>
     <head>
         <meta charset="UTF-8">
         <title>Redirecting...</title>
-        <meta http-equiv="refresh" content="0;url=/dashboard.php">
+        <meta http-equiv="refresh" content="0;url=/dashboard">
     </head>
     <body>
         <script>
-            window.location.href = '/dashboard.php';
+            window.location.href = '/dashboard';
         </script>
-        <p>Redirecting to dashboard... <a href="/dashboard.php">Click here if not redirected</a></p>
+        <p>Redirecting to dashboard... <a href="/dashboard">Click here if not redirected</a></p>
     </body>
     </html>
     <?php
