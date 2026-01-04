@@ -624,13 +624,13 @@ $uptime = '1d 2h 57m';
             <span id="logo-text" class="logo-text">Heye</span>
         </div>
         <div class="nav-center">
-            <a href="/dashboard.php" class="nav-link active">Dashboard</a>
-            <a href="/accounts.php" class="nav-link">Accounts</a>
+            <a href="/dashboard" class="nav-link active">Dashboard</a>
+            <a href="/accounts" class="nav-link">Accounts</a>
             <?php if ($isAdmin): ?>
-                <a href="/acp.php" class="nav-link">ACP</a>
+                <a href="/acp" class="nav-link">ACP</a>
             <?php endif; ?>
             <?php if ($isOwner): ?>
-                <a href="/ocp.php" class="nav-link">OCP</a>
+                <a href="/ocp" class="nav-link">OCP</a>
             <?php endif; ?>
         </div>
         <div class="user-menu">
@@ -812,7 +812,7 @@ $uptime = '1d 2h 57m';
         lucide.createIcons();
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/logout.php';
+                window.location.href = '/logout';
             }
         }
         
