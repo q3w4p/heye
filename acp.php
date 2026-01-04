@@ -4,7 +4,7 @@
  */
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: /index.html');
+    header('Location: /index');
     exit;
 }
 $username = htmlspecialchars($_SESSION['username'] ?? 'User');
@@ -35,7 +35,7 @@ $isOwner = $role === 'owner';
 $isAdmin = $role === 'admin' || $isOwner;
 
 if (!$isAdmin) {
-    header('Location: /dashboard.php');
+    header('Location: /dashboard');
     exit;
 }
 
@@ -54,7 +54,7 @@ if (isset($_POST['action'])) {
         $stmt = $pdo->prepare("DELETE FROM hosted_accounts WHERE id = ?");
         $stmt->execute([$id]);
     }
-    header('Location: /acp.php');
+    header('Location: /acp');
     exit;
 }
 
@@ -400,11 +400,11 @@ $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span id="logo-text" class="logo-text">Heye</span>
         </div>
         <div class="nav-center">
-            <a href="/dashboard.php" class="nav-link">Dashboard</a>
-            <a href="/accounts.php" class="nav-link">Accounts</a>
-            <a href="/acp.php" class="nav-link active">ACP</a>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/accounts" class="nav-link">Accounts</a>
+            <a href="/acp" class="nav-link active">ACP</a>
             <?php if ($isOwner): ?>
-                <a href="/ocp.php" class="nav-link">OCP</a>
+                <a href="/ocp" class="nav-link">OCP</a>
             <?php endif; ?>
         </div>
         <div class="user-menu">
@@ -490,7 +490,7 @@ $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         lucide.createIcons();
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/logout.php';
+                window.location.href = '/logout';
             }
         }
         function toggleToken(input) {
