@@ -4,7 +4,7 @@
  */
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: /index.html');
+    header('Location: /index');
     exit;
 }
 $username = htmlspecialchars($_SESSION['username'] ?? 'User');
@@ -33,7 +33,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 $role = $userData['role'] ?? 'user';
 
 if ($role !== 'owner') {
-    header('Location: /dashboard.php');
+    header('Location: /dashboard');
     exit;
 }
 
@@ -408,10 +408,10 @@ $staff = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span id="logo-text" class="logo-text">Heye</span>
         </div>
         <div class="nav-center">
-            <a href="/dashboard.php" class="nav-link">Dashboard</a>
-            <a href="/accounts.php" class="nav-link">Accounts</a>
-            <a href="/acp.php" class="nav-link">ACP</a>
-            <a href="/ocp.php" class="nav-link active">OCP</a>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/accounts" class="nav-link">Accounts</a>
+            <a href="/acp" class="nav-link">ACP</a>
+            <a href="/ocp" class="nav-link active">OCP</a>
         </div>
         <div class="user-menu">
             <div class="user-info">
@@ -433,7 +433,7 @@ $staff = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="card">
                 <h2>Quick Actions</h2>
                 <div class="quick-links">
-                    <a href="/announcements.php" class="quick-link">
+                    <a href="/announcements" class="quick-link">
                         <i data-lucide="megaphone" style="width: 20px; height: 20px;"></i>
                         <div class="quick-link-content">
                             <div class="quick-link-title">Manage Announcements</div>
@@ -491,7 +491,7 @@ $staff = $stmt->fetchAll(PDO::FETCH_ASSOC);
         lucide.createIcons();
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/logout.php';
+                window.location.href = '/logout';
             }
         }
 
